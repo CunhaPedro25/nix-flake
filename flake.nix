@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager,... }@inputs: 
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -31,15 +31,14 @@
           ];
         };
       };
-      
+
       homeConfigurations = {
         mint-desktop = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             ./hosts/mint-desktop/home.nix
-	    inputs.home-manager.nixosModules.default
-	  ];
-	};
+          ];
+        };
       };
     };
 }
