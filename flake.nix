@@ -25,11 +25,21 @@
         nixos-desktop = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
           modules = [
-            ./hosts/default/configuration.nix
+            ./hosts/nixos-desktop/configuration.nix
             inputs.home-manager.nixosModules.default
             inputs.nix-ld.nixosModules.nix-ld
           ];
         };
+      };
+      
+      homeConfigurations = {
+        mint-desktop = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./hosts/mint-desktop/home.nix
+	    inputs.home-manager.nixosModules.default
+	  ];
+	};
       };
     };
 }
